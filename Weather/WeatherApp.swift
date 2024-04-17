@@ -9,9 +9,21 @@ import SwiftUI
 
 @main
 struct WeatherApp: App {
+    // MARK: - PROPERTIEW
+    @AppStorage("isOnboarding") var isOnboarding: Bool = true
+    
+    @StateObject private var viewModel = WeatherViewModel()
+    
+    // MARK: - BODY
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            if isOnboarding {
+                OnboardingView()
+                    .environmentObject(viewModel)
+            } else {
+                ContentView()
+                    .environmentObject(viewModel)
+                }
         }
     }
 }
